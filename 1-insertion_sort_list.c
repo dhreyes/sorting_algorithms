@@ -8,7 +8,7 @@ void node_swap(listint_t *first, listint_t *second);
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *temp, *iterator, *node_1, *node_2;
+	listint_t *temp, *iterator, *node_2, *node_1;
 
 	if (list == NULL || (*list)->next == NULL)
 		return;
@@ -22,9 +22,7 @@ void insertion_sort_list(listint_t **list)
 		{
 			node_swap(temp, iterator);
 			if (*list == temp)
-			{
 				*list = iterator;
-			}
 			iterator = iterator->next;
 			temp = iterator->prev;
 			print_list(*list);
@@ -32,15 +30,9 @@ void insertion_sort_list(listint_t **list)
 			node_2 = node_1->prev;
 			while (node_2 && node_2->n > node_1->n)
 			{
-				printf("This is iterator: <%d>\n", iterator->n);
-				printf("This is temp: <%d>\n", temp->n);
-				printf("This is node_1: <%d>\n", node_1->n);
-				printf("This is node_2: <%d>\n", node_2->n);
 				node_swap(node_2, node_1);
 				if (node_2 == *list)
-				{
 					*list = node_1;
-				}
 				print_list(*list);
 				node_2 = node_1->prev;
 			}
@@ -64,6 +56,6 @@ void node_swap(listint_t *first, listint_t *second)
 		second->prev->next = second;
 	first->prev = second;
 	if (first->next)
-		first->prev->next = first;
+		first->next->prev = first;
 	second->next = first;
 }
