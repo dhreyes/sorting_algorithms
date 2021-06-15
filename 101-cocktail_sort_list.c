@@ -8,6 +8,7 @@
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *temp, *iterator, *iterator2;
+	int flag = 0;
 
 	if (!list || !(*list))
 		return;
@@ -24,10 +25,10 @@ void cocktail_sort_list(listint_t **list)
 			node_swap(temp, iterator);
 			if (*list == temp)
 				*list = iterator;
-			iterator = iterator->next;
-			temp = iterator->prev;
 			print_list(*list);
-			while (iterator2)
+			if (temp->next == NULL)
+				flag = 1;
+			while (iterator2 && flag == 1)
 			{
 				if (temp->n < iterator2->n)
 				{
@@ -35,8 +36,8 @@ void cocktail_sort_list(listint_t **list)
 					node_swap(iterator2, temp);
 					if (*list == iterator2)
 						*list = temp;
-					iterator2 = iterator2->prev;
-					temp = iterator2->next;
+					if (iterator2 == NULL)
+						flag = 0;
 					print_list(*list);
 				}
 				temp = iterator2;
